@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="script.js"></script>
+    <meta charset="UTF-8">
+    <title>Discount</title>
+
+
+    <form action="action.php" method="get">
+        <div id="parentId">
+            <div>
+                <input name="item_1"  type="number"/>
+                <a onclick="return deleteField(this)" href="#">[X]</a>
+            </div>
+        </div>
+        <input class="s" type="submit" value="Buy"/>
+    </form>
+    <a onclick="return addField()" href="#">Add item</a>
+
+    <script>
+        let countOfFields = 1;   // Текущее число полей
+        let curFieldNameId = 1; // Уникальное значение для атрибута name
+        let maxFieldLimit = 5; // Максимальное число возможных полей
+
+        function deleteField(a) {
+            let contDiv = a.parentNode;                 // Получаем доступ к ДИВу, содержащему поле
+            contDiv.parentNode.removeChild(contDiv);   // Удаляем этот ДИВ из DOM-дерева
+            countOfFields--;                          // Уменьшаем значение текущего числа полей
+            return false;                            // Возвращаем false, чтобы не было перехода по сслыке
+        }
+
+        function addField() {
+            if (countOfFields >= maxFieldLimit) { // Проверяем, не достигло ли число полей максимума
+                alert("Число полей достигло своего максимума = " + maxFieldLimit);
+                return false;
+            }
+            countOfFields++;                           // Увеличиваем текущее значение числа полей
+            curFieldNameId++;                         // Увеличиваем ID
+            let div = document.createElement("div"); // Создаем элемент ДИВ
+
+            // Добавляем HTML-контент с пом. свойства innerHTML
+            div.innerHTML = "<input name=\"item_" + curFieldNameId + "\" type=\"number\" /> <a onclick=\"return deleteField(this)\" href=\"#\">[X]</a>";
+            document.getElementById("parentId").appendChild(div); // Добавляем новый узел в конец списка полей
+            return false;                                        // Возвращаем false, чтобы не было перехода по сслыке
+        }
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
